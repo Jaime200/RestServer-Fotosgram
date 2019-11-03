@@ -6,17 +6,26 @@ import Token from '../../classes/token';
 import { verificaToken } from '../../middlewares/autenticacion';
 const routerUsuario = Router();
 /*SERVICIO GET*/
-routerUsuario.get('/',(req: Request, res:Response)=>{
-    const usuario = {
-        nombre:req.body.nombre,
-        email:req.body.email,
-        password:req.body.password,
-    }
-    return res.status(200).json({
+// routerUsuario.get('/',(req: Request, res:Response)=>{
+//     const usuario = {
+//         nombre:req.body.nombre,
+//         email:req.body.email,
+//         password:req.body.password,
+//     }
+//     return res.status(200).json({
+//         ok:true,
+//         usuario
+//     })
+// } );
+
+
+routerUsuario.get('/',[verificaToken],(req: any, res:Response)=>{
+    const usuario = req.usuario;
+    res.status(200).json({
         ok:true,
         usuario
     })
-} );
+})
 
 /*SERVICIO POST */
 routerUsuario.post('/',(req: Request, res:Response)=>{
